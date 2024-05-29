@@ -10,11 +10,13 @@ const Display = ({item, handleEditButton, handleDeleteButton}) => {
   }
 
  return (
+  <div>
   <button
   onClick={showPrompt}>Edit</button>
   <button
   onClick={(event) => { event.preventDefault(); handleDeleteButton(item.id)}}
   >Delete</button>
+  </div>
  )
 };
 
