@@ -18,8 +18,8 @@ exports.addItem = function (data) { // model for post request contoller
   return new Glossary(data).save();
 };
 
-exports.updateItem = function () { // model for put request contoller
-
+exports.updateItem = function (index, newText) { // model for put request contoller
+  return Glossary.findByIdAndUpdate(index,{ $set { text: newText}});
 };
 
 exports.removeItem = function () { // model for delete request contoller

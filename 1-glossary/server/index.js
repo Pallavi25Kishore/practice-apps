@@ -23,7 +23,7 @@ app.get('/glossary', function (req, res) {
   })
   .catch(() => {
     res.sendStatus(400);
-  })
+  });
 });
 
 app.post('/glossary', function (req, res) {
@@ -34,16 +34,23 @@ app.post('/glossary', function (req, res) {
   })
   .catch(() => {
     res.sendStatus(400);
-  })
+  });
 });
 
 app.put('/glossary/:id', function (req, res) {
-  var index = req.params.id // NOTE - see how id key is created in mondodb
-
+  var index = req.params.id;
+  var newText = req.body.text;
+  Glossary.updateItem(index, newText)
+  .then(() => {
+    res.send('item updated');
+  })
+  .catch(() => {
+    res.sendStatus(400);
+  });
 });
 
 app.delete('/glossary/:id', function (req, res) {
-  var index = req.params.id // NOTE - see how id key is created in mondodb
+  var index = req.params.id
 
 });
 
