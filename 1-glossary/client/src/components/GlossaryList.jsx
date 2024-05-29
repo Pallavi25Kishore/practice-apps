@@ -5,7 +5,9 @@ import Item from './Item.jsx';
   return (
     <div>
       {list.map((item) => {
-        return <Item item={item} handleEditButton={handleEditButton} handleDeleteButton={handleDeleteButton}/>
+        return <Item item={item} handleEditButton={handleEditButton}
+        handleDeleteButton={handleDeleteButton}
+        key={item['_id']}/>
       })}
     </div>
   )

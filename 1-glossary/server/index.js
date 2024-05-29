@@ -38,7 +38,7 @@ app.post('/glossary', function (req, res) {
 });
 
 app.put('/glossary/:id', function (req, res) {
-  var index = req.params.id;
+  var index = req.params.id
   var newText = req.body.text;
   Glossary.updateItem(index, newText)
   .then(() => {

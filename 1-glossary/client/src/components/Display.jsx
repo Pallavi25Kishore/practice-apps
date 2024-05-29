@@ -2,11 +2,10 @@ import react from 'react';
 
 
 const Display = ({item, handleEditButton, handleDeleteButton}) => {
-
   const showPrompt = (event) =>{
     event.preventDefault();
     var newText = prompt('Edit Glossary Item', item.text);
-    handleEditButton(item.id, newText);
+    handleEditButton(item['_id'], newText);
   }
 
  return (
@@ -14,8 +13,9 @@ const Display = ({item, handleEditButton, handleDeleteButton}) => {
   <button
   onClick={showPrompt}>Edit</button>
   <button
-  onClick={(event) => { event.preventDefault(); handleDeleteButton(item.id)}}
+  onClick={(event) => { event.preventDefault(); handleDeleteButton(item['_id'])}}
   >Delete</button>
+  <hr></hr>
   </div>
  )
 };
