@@ -7,23 +7,23 @@ id: mongoose.ObjectId,
 text: STRING
 });
 
-const Glossary = mongoose.model('Glossary', glossarySchema);
+const Glossaryitem = mongoose.model('Glossary', glossarySchema);
 
 exports.getAll = function () { // model for get request contoller
-  return Glossary.find({}).exec();
+  return Glossaryitem.find({}).exec();
 
 };
 
 exports.addItem = function (data) { // model for post request contoller
-  return new Glossary(data).save();
+  return new Glossaryitem(data).save();
 };
 
 exports.updateItem = function (index, newText) { // model for put request contoller
-  return Glossary.findByIdAndUpdate(index,{ $set { text: newText}});
+  return Glossaryitem.findByIdAndUpdate(index,{ $set { text: newText}});
 };
 
-exports.removeItem = function () { // model for delete request contoller
-
+exports.removeItem = function (index) { // model for delete request contoller
+  return Glossaryitem.findByIdAndDelete(index);
 };
 
 

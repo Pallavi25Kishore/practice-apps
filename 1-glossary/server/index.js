@@ -51,7 +51,13 @@ app.put('/glossary/:id', function (req, res) {
 
 app.delete('/glossary/:id', function (req, res) {
   var index = req.params.id
-
+  Glossary.removeItem(index)
+  .then(() => {
+    res.send('item deleted');
+  })
+  .catch(() => {
+    res.sendStatus(400);
+  });
 });
 
 
