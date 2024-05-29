@@ -4,7 +4,7 @@ mongoose.connect(`mongodb://localhost/${process.env.DB_NAME}`);
 
 const glossarySchema = mongoose.Schema({
 id: mongoose.ObjectId,
-text: STRING
+text: String
 });
 
 const Glossaryitem = mongoose.model('Glossary', glossarySchema);
@@ -19,7 +19,7 @@ exports.addItem = function (data) { // model for post request contoller
 };
 
 exports.updateItem = function (index, newText) { // model for put request contoller
-  return Glossaryitem.findByIdAndUpdate(index,{ $set { text: newText}});
+  return Glossaryitem.findByIdAndUpdate(index,{ $set: { text: newText}});
 };
 
 exports.removeItem = function (index) { // model for delete request contoller
