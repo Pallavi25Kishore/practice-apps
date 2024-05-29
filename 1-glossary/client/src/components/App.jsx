@@ -31,10 +31,31 @@ const addTerm = (term) => {
   });
 };
 
+const handleEditButton = (index, newText) => {
+  axios.put(`/glossary/${index}`, {text: newText})
+  .then(() => {
+    getData();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+};
+
+const handleDeleteButton = (index) => {
+  axios.delete(`/glossary/${index}`)
+  .then(() => {
+    getData();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+};
+
 return (
   <div>
     <Heading />
     <Form addTerm={addTerm}/>
+    <Filter list={list} handleEditButton={handleEditButton} handleDeleteButton={handleDeleteButton}/>
   </div>
 )
 

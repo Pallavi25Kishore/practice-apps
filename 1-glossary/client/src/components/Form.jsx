@@ -1,5 +1,4 @@
 import react, {useState} from 'react';
-import axios from 'axios';
 
 const Form = ({addTerm}) => {
 
