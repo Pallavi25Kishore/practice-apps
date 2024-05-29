@@ -10,7 +10,7 @@ text: STRING
 const Glossary = mongoose.model('Glossary', glossarySchema);
 
 exports.getAll = function () { // model for get request contoller
-
+  return Glossary.find({}).exec();
 
 };
 

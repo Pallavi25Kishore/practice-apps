@@ -17,7 +17,13 @@ app.use(express.json());
  */
 
 app.get('/glossary', function (req, res) {
-
+  Glossary.getAll()
+  .then((data) => {
+    res.send(data);
+  })
+  .catch(() => {
+    res.sendStatus(400);
+  })
 });
 
 app.post('/glossary', function (req, res) {
