@@ -8,6 +8,7 @@ import axios from 'axios';
 const App = () => {
 
 const [list, setList] = useState([]);
+const [searchTerm, setSearchTerm] = useState('');
 
 const getData = () => {
   axios.get('/glossary')
@@ -51,11 +52,18 @@ const handleDeleteButton = (index) => {
   });
 };
 
+const search = (term) => {
+  setSearchTerm(term);
+};
+
 return (
   <div>
     <Heading />
     <Form addTerm={addTerm}/>
-    <Filter list={list} handleEditButton={handleEditButton} handleDeleteButton={handleDeleteButton}/>
+    <Search search={search}/>
+    <Filter list={list} handleEditButton={handleEditButton}
+    handleDeleteButton={handleDeleteButton}
+    searchTerm={searchTerm}/>
   </div>
 )
 

@@ -1,6 +1,6 @@
 import react, {useState} from 'react';
 
-const Form = ({addTerm}) => {
+const Search = ({search}) => {
 
   const [value, setValue] = useState('');
 
@@ -10,26 +10,21 @@ const Form = ({addTerm}) => {
   };
 
   const handleClick = (event) => {
-    event.preventDefault;
-    addTerm(value);
+    event.preventDefault();
+    search(value);
   };
 
 
 return (
-  <form>
+  <div>
     <input
-    size="75"
     type="text"
     onChange={handleOnChange}
     value = {value}
-    placeholder="Enter new key term and definition"></input>
-    <button onClick={handleClick}>Add</button>
-  </form>
+    placeholder="Search..."></input>
+    <button onClick={handleClick}>Search</button>
+  </div>
 )
-
-
-
-
 };
 
-export default Form;
+export default Search;
