@@ -1,6 +1,6 @@
 import react from 'react';
 
-const Account = ({sendAccountInfo}) => {
+const Account = ({sendAccountInfo, accountButtonClick, showAccountInfo}) => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -10,8 +10,15 @@ const Account = ({sendAccountInfo}) => {
     sendAccountInfo(formJson.username, formJson.email, formJson.password);
   };
 
+  const handleClick = (event) => {
+    event.preventDefault();
+    accountButtonClick();
+  }
+
   return (
-    <form onSubmit={handleFormSubmit}>
+    <div>
+      {showAccountInfo ?
+    (<form onSubmit={handleFormSubmit}>
       <label for="username">Enter Username:</label>
       <input type="text" id="username" name="username" required></input>
       <br></br>
@@ -21,8 +28,10 @@ const Account = ({sendAccountInfo}) => {
       <label for="password">Enter password:</label>
       <input type="password" id="password" name="password" required></input>
       <br></br>
-      <button type="submit">NEXT</button>
-    </form>
+      <button type="submit" onClick={handleClick}>NEXT</button>
+    </form>) : null
+    }
+    </div>
   )
 };
 

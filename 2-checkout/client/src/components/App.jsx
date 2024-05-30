@@ -4,9 +4,18 @@ import Checkout from './Checkout.jsx';
 import Account from './Account.jsx';
 import Address from './Address.jsx';
 import Card from './Card.jsx';
+import Purchase from './Purchase.jsx';
+
 
 
 const App = () => {
+
+  const[showCheckout, setShowCheckout] = useState(true);
+  const[showAccountInfo, setShowAccountInfo] = useState(false);
+  const[showAddressInfo, setShowAddressInfo] = useState(false);
+  const[showCardInfo, setShowCardInfo] = useState(false);
+  const[showPurchase, setShowPurchase] = useState(false);
+  const [purchaseInfo, setPurchaseInfo] = useState('');
 
   const sendAccountInfo = (username, email, password) => {
     axios.post('/response/accountinfo', {
@@ -41,24 +50,52 @@ const App = () => {
       cvv : cvv,
       zipcode : zipcode
     })
-    .then((response)=> {
-      console.log(response);
+    .then( () => {
+      axios.get('/response')
+    })
+    .then((response) => {
+      setPurchaseInfo(response.data)
     })
     .catch((error) => {
       console.log(error);
     });
   }
 
+  const checkoutButtonClick = () => {
+    setShowCheckout(!showCheckout);
+    setShowAccountInfo(!showAccountInfo);
+  };
+
+  const accountButtonClick = () => {
+    setShowAccountInfo(!showAccountInfo);
+    setShowAddressInfo(!showAddressInfo);
+  };
+
+  const addressButtonClick = () => {
+    setShowAddressInfo(!showAddressInfo);
+    setShowCardInfo(!showCardInfo);
+  };
+
+  const cardButtonClick = () => {
+    setShowCardInfo(!showCardInfo);
+    setShowPurchase(!showPurchase);
+  };
+
+  const purchaseButtonClick = () => {
+    setShowPurchase(!showPurchase);
+    setShowCheckout(!showCheckout);
+  };
+
 
 return (
   <div>
-    <Checkout />
-    <Account sendAccountInfo={sendAccountInfo}/>
-    <Address sendAddress={sendAddress}/>
-    <Card sendCardInfo={sendCardInfo}/>
-
+    <h1>Checkout</h1>
+    <Checkout checkoutButtonClick={checkoutButtonClick} showCheckout={showCheckout}/>
+    <Account sendAccountInfo={sendAccountInfo} accountButtonClick={accountButtonClick} showAccountInfo={showAccountInfo}/>
+    <Address sendAddress={sendAddress} addressButtonClick={addressButtonClick} showAddressInfo={showAddressInfo}/>
+    <Card sendCardInfo={sendCardInfo} cardButtonClick={cardButtonClick} showCardInfo={showCardInfo}/>
+    <Purchase purchaseButtonClick={purchaseButtonClick} showPurchase={showPurchase}/>
   </div>
-
 )
 
 

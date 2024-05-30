@@ -1,6 +1,6 @@
 import react from 'react';
 
-const Address = ({sendAddress}) => {
+const Address = ({sendAddress, addressButtonClick, showAddressInfo}) => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -15,7 +15,14 @@ const Address = ({sendAddress}) => {
     sendAddress(address);
   };
 
+  const handleClick = () => {
+    event.preventDefault();
+    addressButtonClick();
+  };
+
   return (
+    <div>
+      {showAddressInfo ?
     <form onSubmit={handleFormSubmit}>
       <label for="line 1">Enter Address:</label>
       <input type="text" id="line1" name="line1" placeholder="Line 1..." required></input>
@@ -28,8 +35,9 @@ const Address = ({sendAddress}) => {
       <label for="city">Zip Code:</label>
       <input type="text" id="zip" name="zip" required></input>
       <br></br>
-      <button type="submit">NEXT</button>
-    </form>
+      <button type="submit" onClick={handleClick}>NEXT</button>
+    </form> : null}
+    </div>
   )
 };
 
