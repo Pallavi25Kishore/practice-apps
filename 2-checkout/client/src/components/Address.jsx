@@ -1,6 +1,6 @@
 import react from 'react';
 
-const Address = ({sendAddress, addressButtonClick, showAddressInfo}) => {
+const Address = ({sendAddress, showAddressInfo}) => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -12,30 +12,26 @@ const Address = ({sendAddress, addressButtonClick, showAddressInfo}) => {
     } else {
       var address = `${formJson.line1}, ${formJson.line2}, ${formJson.city}, ${formJson.state}, ${formJson.zip}`;
     }
+    console.log(address);
     sendAddress(address);
-  };
-
-  const handleClick = () => {
-    event.preventDefault();
-    addressButtonClick();
   };
 
   return (
     <div>
       {showAddressInfo ?
     <form onSubmit={handleFormSubmit}>
-      <label for="line 1">Enter Address:</label>
+      <label htmlFor="line 1">Enter Address:</label>
       <input type="text" id="line1" name="line1" placeholder="Line 1..." required></input>
       <input type="text" id="line2" name="line2" placeholder="Line 2..."></input>
       <br></br>
-      <label for="city">City:</label>
+      <label htmlFor="city">City:</label>
       <input type="text" id="city" name="city" required></input>
-      <label for="city">State:</label>
+      <label htmlFor="city">State:</label>
       <input type="text" id="state" name="state" required></input>
-      <label for="city">Zip Code:</label>
+      <label htmlFor="city">Zip Code:</label>
       <input type="text" id="zip" name="zip" required></input>
       <br></br>
-      <button type="submit" onClick={handleClick}>NEXT</button>
+      <button type="submit">NEXT</button>
     </form> : null}
     </div>
   )

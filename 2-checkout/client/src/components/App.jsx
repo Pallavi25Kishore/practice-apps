@@ -15,7 +15,7 @@ const App = () => {
   const[showAddressInfo, setShowAddressInfo] = useState(false);
   const[showCardInfo, setShowCardInfo] = useState(false);
   const[showPurchase, setShowPurchase] = useState(false);
-  const [purchaseInfo, setPurchaseInfo] = useState('');
+  const [purchaseInfo, setPurchaseInfo] = useState(''); // USE ONCE BACK END IS WORKING
 
   const sendAccountInfo = (username, email, password) => {
     axios.post('/response/accountinfo', {
@@ -24,10 +24,13 @@ const App = () => {
       password: password
     })
     .then((response)=> {
-      console.log(response);
+      setShowAccountInfo(!showAccountInfo);
+      setShowAddressInfo(!showAddressInfo);
     })
     .catch((error) => {
       console.log(error);
+      setShowAccountInfo(!showAccountInfo);//REMOVE LATER WHEN BACKEND IS READY
+      setShowAddressInfo(!showAddressInfo);//REMOVE LATER WHEN BACKEND IS READY
     });
   }
 
@@ -36,10 +39,13 @@ const App = () => {
       address: address
     })
     .then((response)=> {
-      console.log(response);
+      setShowAddressInfo(!showAddressInfo);
+      setShowCardInfo(!showCardInfo);
     })
     .catch((error) => {
       console.log(error);
+      setShowAddressInfo(!showAddressInfo);//REMOVE LATER WHEN BACKEND IS READY
+      setShowCardInfo(!showCardInfo);//REMOVE LATER WHEN BACKEND IS READY
     });
   };
 
@@ -54,31 +60,20 @@ const App = () => {
       axios.get('/response')
     })
     .then((response) => {
-      setPurchaseInfo(response.data)
+      setPurchaseInfo(response.data);
+      setShowCardInfo(!showCardInfo);
+      setShowPurchase(!showPurchase);
     })
     .catch((error) => {
       console.log(error);
+      setShowCardInfo(!showCardInfo);//REMOVE LATER WHEN BACKEND IS READY
+      setShowPurchase(!showPurchase);//REMOVE LATER WHEN BACKEND IS READY
     });
   }
 
   const checkoutButtonClick = () => {
     setShowCheckout(!showCheckout);
     setShowAccountInfo(!showAccountInfo);
-  };
-
-  const accountButtonClick = () => {
-    setShowAccountInfo(!showAccountInfo);
-    setShowAddressInfo(!showAddressInfo);
-  };
-
-  const addressButtonClick = () => {
-    setShowAddressInfo(!showAddressInfo);
-    setShowCardInfo(!showCardInfo);
-  };
-
-  const cardButtonClick = () => {
-    setShowCardInfo(!showCardInfo);
-    setShowPurchase(!showPurchase);
   };
 
   const purchaseButtonClick = () => {
@@ -91,9 +86,9 @@ return (
   <div>
     <h1>Checkout</h1>
     <Checkout checkoutButtonClick={checkoutButtonClick} showCheckout={showCheckout}/>
-    <Account sendAccountInfo={sendAccountInfo} accountButtonClick={accountButtonClick} showAccountInfo={showAccountInfo}/>
-    <Address sendAddress={sendAddress} addressButtonClick={addressButtonClick} showAddressInfo={showAddressInfo}/>
-    <Card sendCardInfo={sendCardInfo} cardButtonClick={cardButtonClick} showCardInfo={showCardInfo}/>
+    <Account sendAccountInfo={sendAccountInfo} showAccountInfo={showAccountInfo}/>
+    <Address sendAddress={sendAddress} showAddressInfo={showAddressInfo}/>
+    <Card sendCardInfo={sendCardInfo} showCardInfo={showCardInfo}/>
     <Purchase purchaseButtonClick={purchaseButtonClick} showPurchase={showPurchase}/>
   </div>
 )
