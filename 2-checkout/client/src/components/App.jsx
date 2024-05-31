@@ -15,7 +15,7 @@ const App = () => {
   const[showAddressInfo, setShowAddressInfo] = useState(false);
   const[showCardInfo, setShowCardInfo] = useState(false);
   const[showPurchase, setShowPurchase] = useState(false);
-  const [purchaseInfo, setPurchaseInfo] = useState(''); // USE ONCE BACK END IS WORKING
+  const [purchaseInfo, setPurchaseInfo] = useState('');
 
   const sendAccountInfo = (username, email, password) => {
     axios.post('/response/accountinfo', {
@@ -29,13 +29,11 @@ const App = () => {
     })
     .catch((error) => {
       console.log(error);
-      setShowAccountInfo(!showAccountInfo);//REMOVE LATER WHEN BACKEND IS READY
-      setShowAddressInfo(!showAddressInfo);//REMOVE LATER WHEN BACKEND IS READY
     });
   }
 
   const sendAddress = (address) => {
-    axios.post('/response/addressinfo', {
+    axios.patch('/response/addressinfo', {
       address: address
     })
     .then((response)=> {
@@ -44,30 +42,27 @@ const App = () => {
     })
     .catch((error) => {
       console.log(error);
-      setShowAddressInfo(!showAddressInfo);//REMOVE LATER WHEN BACKEND IS READY
-      setShowCardInfo(!showCardInfo);//REMOVE LATER WHEN BACKEND IS READY
     });
   };
 
   const sendCardInfo = (cardNum, expiry, cvv, zipcode) => {
-    axios.post('/response/cardinfo', {
+    axios.patch('/response/cardinfo', {
       cardnum : cardNum,
       expiry: expiry,
       cvv : cvv,
       zipcode : zipcode
     })
     .then( () => {
-      axios.get('/response')
+      return axios.get('/response');
     })
     .then((response) => {
-      setPurchaseInfo(response.data);
+      console.log('only', response);
+      setPurchaseInfo(response.data[0][0]);
       setShowCardInfo(!showCardInfo);
       setShowPurchase(!showPurchase);
     })
     .catch((error) => {
       console.log(error);
-      setShowCardInfo(!showCardInfo);//REMOVE LATER WHEN BACKEND IS READY
-      setShowPurchase(!showPurchase);//REMOVE LATER WHEN BACKEND IS READY
     });
   }
 
@@ -89,7 +84,7 @@ return (
     <Account sendAccountInfo={sendAccountInfo} showAccountInfo={showAccountInfo}/>
     <Address sendAddress={sendAddress} showAddressInfo={showAddressInfo}/>
     <Card sendCardInfo={sendCardInfo} showCardInfo={showCardInfo}/>
-    <Purchase purchaseButtonClick={purchaseButtonClick} showPurchase={showPurchase}/>
+    <Purchase purchaseButtonClick={purchaseButtonClick} showPurchase={showPurchase} purchaseInfo={purchaseInfo}/>
   </div>
 )
 
