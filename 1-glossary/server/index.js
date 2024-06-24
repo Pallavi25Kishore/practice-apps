@@ -8,13 +8,6 @@ const app = express();
 // Serves up all static and generated assets in in a specified folder.
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(express.json());
-/****
- *
- *
- * Other routes here....
- *
- *
- */
 
 app.get('/glossary', function (req, res) {
   Glossary.getAll()
